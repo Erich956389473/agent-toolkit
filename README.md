@@ -3,6 +3,12 @@
 > 一套完整的AI Agent开发、管理和监控工具集。
 > A complete set of tools for AI Agent development, management, and monitoring.
 
+[![CI](https://github.com/Erich956389473/agent-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Erich956389473/agent-toolkit/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
+[![Go](https://img.shields.io/badge/Go-1.21+-00ADD8.svg)](https://go.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/Erich956389473/agent-toolkit?style=social)](https://github.com/Erich956389473/agent-toolkit)
+
 ## 🎯 项目定位
 
 Agent Toolkit 是一个统一的工具套件，整合了四个核心工具：

@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Run Python tests
+      run: |
+        cd core/scanner && python -m unittest scanner_test.py -v
+        cd ../validator && python -m unittest validator_test.py -v
+        cd ../bridge && python -m unittest bridge_test.py -v
+        cd ../editor && python -m unittest editor_test.py -v
+
+  test-go:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.21'
+    
+    - name: Run Go tests
+      run: |
+        cd core/scanner && go test -v ./...
+        cd core/validator && go test -v ./...
+        cd core/bridge && go test -v ./...
+        cd core/editor && go test -v ./...
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install linters
+      run: |
+        pip install flake8
+        pip install black
+    
+    - name: Lint Python code
+      run: |
+        flake8 core/ --max-line-length=120
+        black --check core/
