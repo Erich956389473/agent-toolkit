@@ -84,6 +84,40 @@ class TestScanner(unittest.TestCase):
         
         agents = s.scan()
         self.assertEqual(len(agents), 0)
+    
+    def test_scanner_get_agent_exists(self):
+        """测试获取已存在的Agent"""
+        s = Scanner()
+        agent = {"id": "get-test", "name": "Get Test", "type": "test", "status": "running", "pid": 1111}
+        s.add_agent(agent)
+        result = s.get_agent("get-test")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["name"], "Get Test")
+    
+    def test_scanner_get_agent_not_found(self):
+        """测试获取不存在的Agent"""
+        s = Scanner()
+        result = s.get_agent("non-existent")
+        self.assertIsNone(result)
+    
+    def test_scanner_add_duplicate_id(self):
+        """测试添加重复ID的Agent（覆盖旧数据）"""
+        s = Scanner()
+        agent1 = {"id": "dup-id", "name": "Original", "type": "test", "status": "running", "pid": 2222}
+        agent2 = {"id": "dup-id", "name": "Updated", "type": "test", "status": "stopped", "pid": 3333}
+        s.add_agent(agent1)
+        s.add_agent(agent2)
+        agents = s.scan()
+        self.assertEqual(len(agents), 1)
+        self.assertEqual(agents[0]["name"], "Updated")
+    
+    def test_scanner_remove_nonexistent(self):
+        """测试移除不存在的Agent（不应报错）"""
+        s = Scanner()
+        try:
+            s.remove_agent("non-existent")
+        except Exception as e:
+            self.fail(f"remove_agent raised {e} unexpectedly")
 
 
 if __name__ == "__main__":

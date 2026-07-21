@@ -83,6 +83,35 @@ class TestValidator(unittest.TestCase):
         self.assertIsInstance(result.valid, bool)
         self.assertIsInstance(result.errors, list)
         self.assertIsInstance(result.warnings, list)
+    
+    def test_validate_empty_name(self):
+        """验证空名称"""
+        card = {"name": "", "url": "https://example.com/agent"}
+        result = self.validator.validate(card)
+        self.assertFalse(result.valid)
+    
+    def test_validate_name_too_long(self):
+        """验证超长名称（超过100字符）"""
+        card = {"name": "A" * 101, "url": "https://example.com/agent"}
+        result = self.validator.validate(card)
+        self.assertFalse(result.valid)
+    
+    def test_validate_invalid_url_format(self):
+        """验证无效URL格式"""
+        card = {"name": "Test", "url": "not-a-url"}
+        result = self.validator.validate(card)
+        self.assertFalse(result.valid)
+    
+    def test_validate_non_dict_input(self):
+        """验证非字典输入"""
+        result = self.validator.validate("not a dict")
+        self.assertFalse(result.valid)
+    
+    def test_validate_file_not_found(self):
+        """验证不存在的文件"""
+        result = self.validator.validate_file("nonexistent.json")
+        self.assertFalse(result.valid)
+        self.assertIn("not found", str(result.errors).lower())
 
 
 if __name__ == "__main__":

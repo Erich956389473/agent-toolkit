@@ -110,6 +110,29 @@ class TestBridge(unittest.TestCase):
         self.assertEqual(len(a2a_adapter.sent_messages), 1)
         self.assertEqual(mcp_adapter.sent_messages[0].content, "MCP message")
         self.assertEqual(a2a_adapter.sent_messages[0].content, "A2A message")
+    
+    def test_send_to_unknown_protocol(self):
+        """测试发送到未注册的协议"""
+        message = Message(from_agent="agent1", to_agent="unknown:target", content="Hello")
+        with self.assertRaises(ValueError):
+            asyncio.run(self.bridge.send(message))
+    
+    def test_send_empty_message(self):
+        """测试发送空消息"""
+        mock_adapter = MockAdapter(protocol="test")
+        self.bridge.register_adapter("test", mock_adapter)
+        message = Message(from_agent="", to_agent="test:target", content="")
+        asyncio.run(self.bridge.send(message))
+        self.assertEqual(len(mock_adapter.sent_messages), 1)
+    
+    def test_register_multiple_adapters_same_protocol(self):
+        """测试重复注册同一协议（覆盖旧适配器）"""
+        adapter1 = MockAdapter(protocol="test")
+        adapter2 = MockAdapter(protocol="test")
+        self.bridge.register_adapter("test", adapter1)
+        self.bridge.register_adapter("test", adapter2)
+        protocols = self.bridge.get_supported_protocols()
+        self.assertEqual(len(protocols), 1)  # 应该只保留最后一个
 
 
 if __name__ == "__main__":

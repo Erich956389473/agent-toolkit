@@ -95,6 +95,52 @@ class TestEditor(unittest.TestCase):
         self.assertIn("Agent 1", names)
         self.assertIn("Agent 2", names)
         self.assertIn("Agent 3", names)
+    
+    def test_get_non_existent_card(self):
+        """测试获取不存在的Card"""
+        card = self.editor.get("non-existent-id")
+        self.assertIsNone(card)
+    
+    def test_delete_non_existent_card(self):
+        """测试删除不存在的Card（不应报错）"""
+        try:
+            self.editor.delete("non-existent-id")
+        except Exception as e:
+            self.fail(f"delete raised {e} unexpectedly")
+    
+    def test_update_non_existent_card(self):
+        """测试更新不存在的Card（不应报错）"""
+        card = AgentCard(name="Ghost", url="https://example.com/ghost")
+        try:
+            self.editor.update("non-existent-id", card)
+        except Exception as e:
+            self.fail(f"update raised {e} unexpectedly")
+    
+    def test_export_json(self):
+        """测试导出Card为JSON"""
+        card_id = self.editor.create(self.valid_card)
+        json_str = self.editor.export_json(card_id)
+        self.assertIsNotNone(json_str)
+        data = json.loads(json_str)
+        self.assertEqual(data["name"], "Test Agent")
+    
+    def test_import_json(self):
+        """测试从JSON导入Card"""
+        json_str = '{"name": "Imported", "url": "https://example.com/imported"}'
+        card_id = self.editor.import_json(json_str)
+        self.assertIsNotNone(card_id)
+        card = self.editor.get(card_id)
+        self.assertEqual(card.name, "Imported")
+    
+    def test_import_invalid_json(self):
+        """测试导入无效JSON"""
+        result = self.editor.import_json("invalid json")
+        self.assertIsNone(result)
+    
+    def test_export_non_existent_card(self):
+        """测试导出不存在的Card"""
+        result = self.editor.export_json("non-existent-id")
+        self.assertIsNone(result)
 
 
 if __name__ == "__main__":
