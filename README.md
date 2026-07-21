@@ -4,7 +4,7 @@
 > A complete set of tools for AI Agent development, management, and monitoring.
 
 [![CI](https://github.com/Erich956389473/agent-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Erich956389473/agent-toolkit/actions/workflows/ci.yml)
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
 [![Go](https://img.shields.io/badge/Go-1.21+-00ADD8.svg)](https://go.dev/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/Erich956389473/agent-toolkit?style=social)](https://github.com/Erich956389473/agent-toolkit)
