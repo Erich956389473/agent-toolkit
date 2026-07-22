@@ -2,42 +2,42 @@ English | [中文](./README.md)
 
 ---
 
-# Ag ent Toolkit
+# Agent Toolkit
 
-> Unified CLI toolkit for managi ng Agent inventory, cards, validation, and br idging
+> Unified CLI toolkit for managing Agent inventory, cards, validation, and bridging
 
-[![GitHub](https://img.shields.io/bad ge/GitHub-100000?style=for-the-badge&logo=git hub&logoColor=white)](https://github.com/Eric h956389473/agent-toolkit)
-[![License: MIT](ht tps://img.shields.io/badge/License-MIT-yellow .svg)](https://opensource.org/licenses/MIT)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Erich956389473/agent-toolkit)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
- ## ✨ Features
+## ✨ Features
 
 - Unified CLI entry point
--  Agent inventory management
+- Agent inventory management
 - Card management
- - Validation and bridging
+- Validation and bridging
 
-## 🚀 Quick Star t
+## 🚀 Quick Start
 
 ### Installation
 
 ```bash
-git clone https: //github.com/Erich956389473/agent-toolkit.git 
+git clone https://github.com/Erich956389473/agent-toolkit.git
 cd agent-toolkit
 ```
 
 ### Usage
 
-Please refe r to the [README](README.md) for detailed usa ge instructions.
+Please refer to the [README](README.md) for detailed usage instructions.
 
 ## 📦 Tech Stack
 
-- **Lan guage:** Python
+- **Language:** Python
 - **License:** MIT
 
-## 📄 L icense
+## 📄 License
 
 MIT License - see [LICENSE](LICENSE)
- 
+
 ---
 
-**Author:** Erich Lee | [GitHub](https: //github.com/Erich956389473) 
+**Author:** Erich Lee | [GitHub](https://github.com/Erich956389473)
